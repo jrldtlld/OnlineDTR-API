@@ -50,5 +50,33 @@ class Employee(dbase):
 
 class Attendance(dbase):
    __tablename__ = 'attendance'
+   attendance_id = dbase.Column(dbase.Integer, primary_key = True)
+   employee_id = dbase.Column(dbase.Integer, dbase.ForeignKey('employee.employee_id'))
+   morning_time_in = dbase.Column(dbase.Time)
+   morning_time_out = dbase.Column(dbase.Time)
+   morning_attendance_status = dbase.Column(dbase.Integer)
+   afternoon_time_in = dbase.Column(dbase.Time)
+   afternoon_time_out = dbase.Column(dbase.Time)
+   afternoon_attendance_status = dbase.Column(dbase.Integer)
+   
+   def __init__(self, employee_id, morning_time_in, morning_time_out, morning_attendance_status, afternoon_time_in, afternoon_time_out, afternoon_attendance_status):
+      self.employee_id = employee_id
+      self.morning_time_in = morning_time_in
+      self.morning_time_out = morning_time_out
+      self.morning_attendance_status = morning_attendance_status
+      self.afternoon_time_in = afternoon_time_in
+      self.afternoon_time_out = afternoon_time_out
+      self.afternoon_attendance_status = afternoon_attendance_status
+
+class Logs(dbase):
+   __tablename__ = 'logs'
+   log_id = dbase.Column(dbase.Integer, primary_key = True)
+   log_details = dbase.Column(dbase.String(100))
+   log_date = dbase.Column(dbase.DateTime)
+
+   def __init__(self, log_details, log_date):
+      self.log_details = log_details
+      self.log_date = log_date
+
 
 
