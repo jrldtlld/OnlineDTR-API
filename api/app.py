@@ -1,9 +1,9 @@
-from api import *
+from api import server
 from models import *
 from flask_login import LoginManager, login_user
 
 login_manager = LoginManager()
-login_manager.init_app(app)
+login_manager.init_app(server)
 
 
 @login_manager.user_loader
