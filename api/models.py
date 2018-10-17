@@ -3,7 +3,7 @@ from flask_login import UserMixin
 
 class Admin(dbase, UserMixin):
    __tablename__ = 'admin'
-   admin_id = dbase.Column(dbase.Integer, primary_key = True)
+   id = dbase.Column(dbase.Integer, primary_key = True)
    username = dbase.Column(dbase.String(50), nullable = False)
    password = dbase.Column(dbase.String(256), nullable = False)
 
@@ -77,6 +77,3 @@ class Logs(dbase):
    def __init__(self, log_details, log_date):
       self.log_details = log_details
       self.log_date = log_date
-
-
-
