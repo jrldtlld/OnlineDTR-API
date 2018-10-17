@@ -1,4 +1,4 @@
-from api import app  
+from api import *
 from models import *
 from flask_login import LoginManager, login_user
 
@@ -10,6 +10,6 @@ login_manager.init_app(app)
 def load_user(user_id):
   return Admin.query.get(int(user_id))
 
-@app.route('/', methods=['GET'])
+@server.route('/', methods=['GET'])
 def index():
    return 'hello deployed!'
