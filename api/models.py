@@ -1,7 +1,7 @@
 from api import dbase, generate_password_hash
 from flask_login import UserMixin
 
-class Admin(dbase, UserMixin):
+class Admin(dbase.Model, UserMixin):
    __tablename__ = 'admin'
    id = dbase.Column(dbase.Integer, primary_key = True)
    username = dbase.Column(dbase.String(50), nullable = False)
@@ -11,7 +11,7 @@ class Admin(dbase, UserMixin):
       self.username = username
       self.password = generate_password_hash(password, method='sha256')
 
-class CompanyTime(dbase):
+class CompanyTime(dbase.Model):
    __tablename__ = 'companytime'
    company_time_id = dbase.Column(dbase.Integer, primary_key = True)
    morning_time_in = dbase.Column(dbase.Time)
@@ -25,7 +25,7 @@ class CompanyTime(dbase):
       self.afternoon_time_in = afternoon_time_in
       self.afternoon_time_out = afternoon_time_out
 
-class Employee(dbase):
+class Employee(dbase.Model):
    __tablename__ = 'employee'
    employee_id = dbase.Column(dbase.Integer, primary_key = True)
    firstname = dbase.Column(dbase.String(50))
@@ -48,7 +48,7 @@ class Employee(dbase):
       self.code = code
       self.position = position
 
-class Attendance(dbase):
+class Attendance(dbase.Model):
    __tablename__ = 'attendance'
    attendance_id = dbase.Column(dbase.Integer, primary_key = True)
    employee_id = dbase.Column(dbase.Integer, dbase.ForeignKey('employee.employee_id'))
@@ -68,7 +68,7 @@ class Attendance(dbase):
       self.afternoon_time_out = afternoon_time_out
       self.afternoon_attendance_status = afternoon_attendance_status
 
-class Logs(dbase):
+class Logs(dbase.Model):
    __tablename__ = 'logs'
    log_id = dbase.Column(dbase.Integer, primary_key = True)
    log_details = dbase.Column(dbase.String(100))
