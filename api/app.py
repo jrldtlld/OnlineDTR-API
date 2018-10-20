@@ -1,5 +1,5 @@
 from api import server, request, jsonify, check_password_hash
-from models import Admin, Employee, dbase
+from models import Admin, Employee, dbase 
 from flask_login import LoginManager, login_user
 
 login_manager = LoginManager()
@@ -58,11 +58,44 @@ def employee_list():
 @server.route('/add-employee', methods=['GET', 'POST'])
 def employee_add():
    data = request.get_json()
+
+   check_avail = Employee.query.filter_by(code = data['code']).first()
+   if not check_avail:
+      try:
+         new_employee = Employee(firstname=data['firstname'], middlename=data['middlename'], lastname=data['lastname'],
+                                 address=data['address'], gender=data['gender'], code=data['code'], birthday = data['birthday'], position=data['[position'], employee_status=1)
+      except:
+         return jsonify({'message': 'There was an error adding the employee'})
+      dbase.session.add(new_employee)
+      dbase.session.commit()
+      return jsonify({'message': 'Employee was added Successfully!'})
+   else:
+      return jsonify({'message': 'The code is not available employee already exist.'})
+
+@server.route('/edit-employee/<string: emp_code>', methods=['GET', 'POST'])
+def employee_edit(emp_code):
+   data = request.get_json()
+   employee_to_edit = Employee.query.filter_by(code = emp_code).first()
+
+@server.remote('/remove-employee/<string: emp_code>', methods=['GET', 'POST'])
+def remove_employee(emp_code):
+   employee_remove = Employee.query.filter_by(code = emp_code).first()
    try:
-      new_employee = Employee(firstname=data['firstname'], middlename=data['middlename'], lastname=data['lastname'],
-                              address=data['address'], gender=data['gender'], code=data['code'], birthday = data['birthday'], position=data['[position'], employee_status=1)
+      employee_remove.employee_status = 0
+      dbase.session.commit()
    except:
-      return jsonify({'message': 'There was an error adding'})
-   dbase.session.add(new_employee)
-   dbase.session.commit()
-   return jsonify({'message': 'Employee was added Successfully!'})
+      return jsonify({'message': 'There was an error request failed!'})
+   return jsonify({'message': 'Employee was deactivated!'})
+
+
+@server.remote('/activate-employee/<string: emp_code>', methods=['GET', 'POST'])
+def activate_employee(emp_code):
+   employee_remove = Employee.query.filter_by(code=emp_code).first()
+   try:
+      employee_remove.employee_status = 1
+      dbase.session.commit()
+   except:
+      return jsonify({'message': 'There was an error request failed!'})
+   return jsonify({'message': 'Employee was activated!'})
+      
+   
