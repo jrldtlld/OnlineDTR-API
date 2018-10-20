@@ -77,7 +77,7 @@ def employee_edit(emp_code):
    data = request.get_json()
    employee_to_edit = Employee.query.filter_by(code = emp_code).first()
 
-@server.remote('/remove-employee/<string: emp_code>', methods=['GET', 'POST'])
+@server.route('/remove-employee/<string: emp_code>', methods=['GET', 'POST'])
 def remove_employee(emp_code):
    employee_remove = Employee.query.filter_by(code = emp_code).first()
    try:
@@ -88,14 +88,34 @@ def remove_employee(emp_code):
    return jsonify({'message': 'Employee was deactivated!'})
 
 
-@server.remote('/activate-employee/<string: emp_code>', methods=['GET', 'POST'])
+@server.route('/activate-employee/<string: emp_code>', methods=['GET', 'POST'])
 def activate_employee(emp_code):
-   employee_remove = Employee.query.filter_by(code=emp_code).first()
+   employee_remove = Employee.query.filter_by(code = emp_code).first()
    try:
       employee_remove.employee_status = 1
       dbase.session.commit()
    except:
       return jsonify({'message': 'There was an error request failed!'})
    return jsonify({'message': 'Employee was activated!'})
+
+@server.route('/employee/deactivated', methods=['GET', 'POST'])
+def view_deactivated():
+   deactivated_list = Employee.query.filter_by(employee_status = 0).all()
+   data = []
+   if deactivated_list:
+      for i in deactivated_list:
+         employee = {}
+         employee['firstname'] = i.firstname
+         employee['middlename'] = i.middlename
+         employee['lastname'] = i.lastname
+         employee['birthday'] = i.birthday
+         employee['address'] = i.address
+         employee['gender'] = i.gender
+         employee['code'] = i.code
+         employee['position'] = i.position
+         data.append(employee)
+         return jsonify({'employee': data})
+   else:
+      return jsonify({'employee': data})
       
    
