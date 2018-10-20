@@ -43,7 +43,6 @@ class Employee(dbase.Model):
       self.middlename = middlename
       self.lastname = lastname
       self.birthday = birthday
-      self.birthday = birthday
       self.gender = gender
       self.address = address
       self.code = code
