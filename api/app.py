@@ -31,6 +31,6 @@ def login():
    else:
       if check_password_hash(admin.password, data['password']):
          login_user(admin, remember=True)
-         return jsonify({'message', 'Log-in Successful!'})
+         return jsonify({'message': 'Login Successfully!'})
       else:
          return jsonify({'message', 'Invalid username or password'})
