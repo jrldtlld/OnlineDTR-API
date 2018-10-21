@@ -1,5 +1,5 @@
 from api import server, request, jsonify, check_password_hash
-from models import Admin, Employee, dbase 
+from models import Admin, Employee, dbase, Overtimelist
 from flask_login import LoginManager, login_user
 
 login_manager = LoginManager()
@@ -117,5 +117,14 @@ def view_deactivated():
          return jsonify({'employee': data})
    else:
       return jsonify({'employee': data})
-      
+   
+@server.route('/request-overtime/<string: emp_code>', methods=['POST'])
+def request_overtime(emp_code):
+   try:
+      overtime_obj = Overtimelist(overtimer_code = emp_code, overtime_status = 0)
+   except:
+      return jsonify({'message': 'There was an error request failed!'})
+   dbase.session.add(overtime_obj)
+   dbase.session.commit()
+
    

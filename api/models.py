@@ -34,7 +34,7 @@ class Employee(dbase.Model):
    birthday = dbase.Column(dbase.DATE)
    gender = dbase.Column(dbase.String(6))
    address = dbase.Column(dbase.String(100))
-   code = dbase.Column(dbase.String(20))
+   code = dbase.Column(dbase.String(20), unique = True)
    position = dbase.Column(dbase.String(30))
    employee_status = dbase.Column(dbase.Integer)
 
@@ -78,3 +78,17 @@ class Logs(dbase.Model):
    def __init__(self, log_details, log_date):
       self.log_details = log_details
       self.log_date = log_date
+
+class Overtimelist(dbase.Model):
+   __tablename__ = 'overtimelist'
+   overtime_id = dbase.Column(dbase.Integer, primary_key = True)
+   overtimer_code = dbase.Column(dbase.String(20))
+   overtime_status = dbase.Column(dbase.Integer)
+   time_out = dbase.Column(dbase.Date)
+   time_in = dbase.Column(dbase.Time)
+   time_out = dbase.Column(dbase.Time)
+   time_status = dbase.Column(dbase.Integer)
+
+   def __init__(self, overtimer_code, overtime_status):
+      self.overtimer_code = overtimer_code
+      self.overtime_status = overtime_status
