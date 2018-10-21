@@ -72,12 +72,13 @@ def employee_add():
    else:
       return jsonify({'message': 'The code is not available employee already exist.'})
 
-@server.route('/edit/employee/<string: emp_code>', methods=['GET', 'POST'])
+@server.route('/edit/employee/<string:emp_code>', methods=['GET', 'POST'])
 def employee_edit(emp_code):
    data = request.get_json()
    employee_to_edit = Employee.query.filter_by(code = emp_code).first()
+   return jsonify({'message': 'success!'})
 
-@server.route('/remove/employee/<string: emp_code>', methods=['GET', 'POST'])
+@server.route('/remove/employee/<string:emp_code>', methods=['GET', 'POST'])
 def remove_employee(emp_code):
    employee_remove = Employee.query.filter_by(code = emp_code).first()
    try:
@@ -88,7 +89,7 @@ def remove_employee(emp_code):
    return jsonify({'message': 'Employee was deactivated!'})
 
 
-@server.route('/activate/employee/<string: emp_code>', methods=['GET', 'POST'])
+@server.route('/activate/employee/<string:emp_code>', methods=['GET', 'POST'])
 def activate_employee(emp_code):
    employee_remove = Employee.query.filter_by(code = emp_code).first()
    try:
@@ -118,7 +119,7 @@ def view_deactivated():
    else:
       return jsonify({'employee': data})
    
-@server.route('/request/overtime/<string: emp_code>', methods=['POST'])
+@server.route('/request/overtime/<string:emp_code>', methods=['POST'])
 def request_overtime(emp_code):
    try:
       overtime_obj = Overtimelist(overtimer_code = emp_code, overtime_status = 0)
