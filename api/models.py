@@ -53,6 +53,7 @@ class Attendance(dbase.Model):
    __tablename__ = 'attendance'
    attendance_id = dbase.Column(dbase.Integer, primary_key = True)
    employee_id = dbase.Column(dbase.Integer, dbase.ForeignKey('employee.employee_id'))
+   attendance_date = dbase.Column(dbase.Date)
    morning_time_in = dbase.Column(dbase.Time)
    morning_time_out = dbase.Column(dbase.Time)
    morning_attendance_status = dbase.Column(dbase.Integer)
@@ -60,8 +61,9 @@ class Attendance(dbase.Model):
    afternoon_time_out = dbase.Column(dbase.Time)
    afternoon_attendance_status = dbase.Column(dbase.Integer)
    
-   def __init__(self, employee_id, morning_time_in, morning_time_out, morning_attendance_status, afternoon_time_in, afternoon_time_out, afternoon_attendance_status):
+   def __init__(self, employee_id, attendance_date, morning_time_in, morning_time_out, morning_attendance_status, afternoon_time_in, afternoon_time_out, afternoon_attendance_status):
       self.employee_id = employee_id
+      self.attendance_date = attendance_date
       self.morning_time_in = morning_time_in
       self.morning_time_out = morning_time_out
       self.morning_attendance_status = morning_attendance_status
@@ -84,9 +86,9 @@ class Overtimelist(dbase.Model):
    overtime_id = dbase.Column(dbase.Integer, primary_key = True)
    overtimer_code = dbase.Column(dbase.String(20))
    overtime_status = dbase.Column(dbase.Integer)
-   time_out = dbase.Column(dbase.Date)
-   time_in = dbase.Column(dbase.Time)
-   time_out = dbase.Column(dbase.Time)
+   overtime_request_date = dbase.Column(dbase.Date)
+   time_in = dbase.Column(dbase.DateTime)
+   time_out = dbase.Column(dbase.DateTime)
    time_status = dbase.Column(dbase.Integer)
 
    def __init__(self, overtimer_code, overtime_status):
