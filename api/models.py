@@ -57,10 +57,12 @@ class Attendance(dbase.Model):
    morning_time_in = dbase.Column(dbase.Time)
    morning_time_out = dbase.Column(dbase.Time)
    morning_attendance_status = dbase.Column(dbase.Integer)
+   morning_remarks = dbase.Column(dbase.String(50))
    afternoon_time_in = dbase.Column(dbase.Time)
    afternoon_time_out = dbase.Column(dbase.Time)
    afternoon_attendance_status = dbase.Column(dbase.Integer)
-   
+   afternoon_remarks = dbase.Column(dbase.String(50))
+
    def __init__(self, employee_id, attendance_date, morning_time_in, morning_time_out, morning_attendance_status, afternoon_time_in, afternoon_time_out, afternoon_attendance_status):
       self.employee_id = employee_id
       self.attendance_date = attendance_date
