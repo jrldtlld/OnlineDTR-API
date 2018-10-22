@@ -55,7 +55,7 @@ def employee_all():
    else:
       return jsonify({'employee': data})
 
-@server.route('/add-employee', methods=['GET', 'POST'])
+@server.route('/add/employee', methods=['GET', 'POST'])
 def employee_add():
    data = request.get_json()
 
