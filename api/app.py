@@ -61,7 +61,7 @@ def employee_add():
    check_avail = Employee.query.filter_by(code = data['code']).first()
    if not check_avail:
       new_employee = Employee(firstname=data['firstname'], middlename=data['middlename'], lastname=data['lastname'],
-                                 address=data['address'], gender=data['gender'], code=data['code'], birthday = data['birthday'], position=data['[position'], employee_status=1)
+                                 address=data['address'], gender=data['gender'], code=data['code'], birthday = data['birthday'], position=data['position'], employee_status=1)
       dbase.session.add(new_employee)
       dbase.session.commit()
       return jsonify({'message': 'Employee was added Successfully!'})
