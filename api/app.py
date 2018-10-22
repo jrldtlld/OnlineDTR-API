@@ -37,7 +37,7 @@ def login():
 
 @server.route('/employee/all', methods=['GET'])
 def employee_all():
-   employee_from_db = Employee.query.filter_by(employee_status = 1).all()
+   employee_from_db = Employee.query.filter_by(employee_status=1).all()
    data = []
    if employee_from_db:
       for i in employee_from_db:
@@ -52,7 +52,7 @@ def employee_all():
          employee['code'] = i.code
          employee['position'] = i.position
          data.append(employee)
-         return jsonify({'employee': data})
+      return jsonify({'employee': data})
    else:
       return jsonify({'employee': data})
 
