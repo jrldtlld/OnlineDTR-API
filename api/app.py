@@ -105,7 +105,7 @@ def view_deactivated():
          employee['firstname'] = i.firstname
          employee['middlename'] = i.middlename
          employee['lastname'] = i.lastname
-         employee['birthday'] = i.birthday
+         employee['birthday'] = str(i.birthday)
          employee['address'] = i.address
          employee['gender'] = i.gender
          employee['code'] = i.code
