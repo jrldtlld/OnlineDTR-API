@@ -58,14 +58,10 @@ def employee_all():
 @server.route('/add/employee', methods=['GET', 'POST'])
 def employee_add():
    data = request.get_json()
-
    check_avail = Employee.query.filter_by(code = data['code']).first()
    if not check_avail:
-      try:
-         new_employee = Employee(firstname=data['firstname'], middlename=data['middlename'], lastname=data['lastname'],
+      new_employee = Employee(firstname=data['firstname'], middlename=data['middlename'], lastname=data['lastname'],
                                  address=data['address'], gender=data['gender'], code=data['code'], birthday = data['birthday'], position=data['[position'], employee_status=1)
-      except:
-         return jsonify({'message': 'There was an error adding the employee'})
       dbase.session.add(new_employee)
       dbase.session.commit()
       return jsonify({'message': 'Employee was added Successfully!'})
