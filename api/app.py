@@ -41,6 +41,7 @@ def employee_all():
    data = []
    if employee_from_db:
       for i in employee_from_db:
+         print(i.firstname)
          employee = {}
          employee['firstname'] = i.firstname
          employee['middlename'] = i.middlename
