@@ -45,7 +45,7 @@ def employee_all():
          employee['firstname'] = i.firstname
          employee['middlename'] = i.middlename
          employee['lastname'] = i.lastname
-         employee['birthday'] = i.birthday
+         employee['birthday'] = str(i.birthday)
          employee['address'] = i.address
          employee['gender'] = i.gender
          employee['code'] = i.code
@@ -123,5 +123,3 @@ def request_overtime(emp_code):
       return jsonify({'message': 'There was an error request failed!'})
    dbase.session.add(overtime_obj)
    dbase.session.commit()
-
-   
