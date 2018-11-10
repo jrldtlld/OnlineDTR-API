@@ -41,7 +41,7 @@ class Employee(dbase.Model):
    employee_status = dbase.Column(dbase.Integer)
 
    def __init__(self, firstname, middlename, lastname, birthday, gender, address, code, position, employee_status):
-      self.f irstname = firstname
+      self.firstname = firstname
       self.middlename = middlename
       self.lastname = lastname
       self.birthday = birthday
