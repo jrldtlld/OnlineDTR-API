@@ -33,13 +33,15 @@ class Employee(dbase.Model):
    lastname = dbase.Column(dbase.String(50))
    birthday = dbase.Column(dbase.DATE)
    gender = dbase.Column(dbase.String(6))
+   status = dbase.Column(dbase.String(10))
+   nationality = dbase.Column(dbase.String(30))
    address = dbase.Column(dbase.String(100))
    code = dbase.Column(dbase.String(20), unique = True)
    position = dbase.Column(dbase.String(30))
    employee_status = dbase.Column(dbase.Integer)
 
    def __init__(self, firstname, middlename, lastname, birthday, gender, address, code, position, employee_status):
-      self.firstname = firstname
+      self.f irstname = firstname
       self.middlename = middlename
       self.lastname = lastname
       self.birthday = birthday
