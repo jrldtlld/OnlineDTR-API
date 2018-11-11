@@ -14,6 +14,15 @@ def load_user(user_id):
 def index():
    return 'hello deployed!'
 
+server.route('/check/code/<string:emp_code>', methods=['GET'])
+def check_code(emp_code):
+   employee = Employee.query.filter_by(code = emp_code).first()
+   if employee:
+      return jsonify({'data':'True'})
+   else:
+      return jsonify({'data': 'False'})
+
+
 
 @server.route('/create-admin', methods=['GET'])
 def create_admin():
@@ -62,8 +71,9 @@ def employee_add():
    data = request.get_json()
    check_avail = Employee.query.filter_by(code = data['code']).first()
    if not check_avail:
-      new_employee = Employee(firstname=data['firstname'], middlename=data['middlename'], lastname=data['lastname'],
-                                 address=data['address'], gender=data['gender'], code=data['code'], birthday = data['birthday'], position=data['position'], employee_status=1)
+      new_employee = Employee(firstname=data['firstname'], middlename=data['middlename'],
+       lastname=data['lastname'], address=data['address'], gender=data['gender'], code=data['code'],
+       birthday = data['birthday'], position=data['position'], employee_status=1, nationality=data['nationality'], status=data['status'])
       dbase.session.add(new_employee)
       dbase.session.commit()
       return jsonify({'message': 'Employee was added Successfully!'})
