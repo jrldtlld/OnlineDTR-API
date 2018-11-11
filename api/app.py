@@ -34,6 +34,7 @@ def create_admin():
 @server.route('/login', methods=['GET', 'POST'])
 def login():
    data = request.get_json()
+   print data
    admin = Admin.query.filter_by(username = data['username']).first()
    if not admin:
       return jsonify({'message': 'Invalid username or password'})
