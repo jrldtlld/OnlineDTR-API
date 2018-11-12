@@ -138,3 +138,25 @@ def request_overtime(emp_code):
       return jsonify({'message': 'There was an error request failed!'})
    dbase.session.add(overtime_obj)
    dbase.session.commit()
+
+@server.route('/view/employee/<string:emp_code>', methods=['GET'])
+def view_one(emp_code):
+   employee_from_db = Employee.query.filter(Employee.employee_status=1 && Employee.code = emp_code).first()
+   data = []
+   if employee_from_db:
+      for i in employee_from_db:
+         employee = {}
+         employee['firstname'] = i.firstname
+         employee['middlename'] = i.middlename
+         employee['lastname'] = i.lastname
+         employee['birthday'] = str(i.birthday)
+         employee['address'] = i.address
+         employee['status'] = i.status
+         employee['nationality'] = i.nationality
+         employee['gender'] = i.gender
+         employee['code'] = i.code
+         employee['position'] = i.position
+         data.append(employee)
+      return jsonify({'employee': data})
+   else:
+      return jsonify({'employee': data})
