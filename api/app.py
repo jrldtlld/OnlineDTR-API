@@ -95,6 +95,7 @@ def employee_edit(emp_code):
    employee_to_edit.position = data['position']
    employee_to_edit.nationality = data['nationality']
    employee_to_edit.status = data['status']
+   dbase.session.commit()
    return jsonify({'message': 'Information was edited Successfully!'})
 
 
