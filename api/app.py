@@ -85,18 +85,22 @@ def employee_add():
 def employee_edit(emp_code):
    data = request.get_json()
    employee_to_edit = Employee.query.filter_by(code = emp_code).first()
-   employee_to_edit.firstname = data['firstname']
-   employee_to_edit.middlename = data['middlename']
-   employee_to_edit.lastname = data['lastname']
-   employee_to_edit.address = data['address']
-   employee_to_edit.gender = data['gender']
-   employee_to_edit.code = data['code']
-   employee_to_edit.birthday = data['birthday']
-   employee_to_edit.position = data['position']
-   employee_to_edit.nationality = data['nationality']
-   employee_to_edit.status = data['status']
-   dbase.session.commit()
-   return jsonify({'message': 'Information was edited Successfully!'})
+   try:
+      employee_to_edit.firstname = data['firstname']
+      employee_to_edit.middlename = data['middlename']
+      employee_to_edit.lastname = data['lastname']
+      employee_to_edit.address = data['address']
+      employee_to_edit.gender = data['gender']
+      employee_to_edit.code = data['code']
+      employee_to_edit.birthday = data['birthday']
+      employee_to_edit.position = data['position']
+      employee_to_edit.nationality = data['nationality']
+      employee_to_edit.status = data['status']
+      dbase.session.commit()
+      return jsonify({'message': 'Information was edited Successfully!'})
+   except:
+      return jsonify({'message': 'The code is not available!'})
+   
 
 
 @server.route('/remove/employee/<string:emp_code>', methods=['GET', 'POST'])
