@@ -134,7 +134,7 @@ def delete_employee(emp_code):
       return jsonify({'message': 'There was an error request failed!'})
    return jsonify({'message': 'Employee was Deleted!'})
 
-@server.route('6', methods=['GET', 'POST'])
+@server.route('/employee/deactivated', methods=['GET', 'POST'])
 def view_deactivated():
    deactivated_list = Employee.query.filter_by(employee_status = 0).all()
    data = []
