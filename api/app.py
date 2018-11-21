@@ -62,6 +62,8 @@ def employee_all():
          employee['gender'] = i.gender
          employee['code'] = i.code
          employee['position'] = i.position
+         employee['contact_number'] = i.contact_number
+         employee['email'] = i.email
          data.append(employee)
       return jsonify({'employee': data})
    else:
@@ -74,7 +76,8 @@ def employee_add():
    if not check_avail:
       new_employee = Employee(firstname=data['firstname'], middlename=data['middlename'],
        lastname=data['lastname'], address=data['address'], gender=data['gender'], code=data['code'],
-       birthday = data['birthday'], position=data['position'], employee_status=1, nationality=data['nationality'], status=data['status'])
+       birthday = data['birthday'], position=data['position'], employee_status=1, nationality=data['nationality'], status=data['status'],
+       email=data['email'], contact_number=data['contact_number'])
       dbase.session.add(new_employee)
       dbase.session.commit()
       return jsonify({'message': 'Employee was added Successfully!'})
@@ -96,6 +99,8 @@ def employee_edit(emp_code):
       employee_to_edit.position = data['position']
       employee_to_edit.nationality = data['nationality']
       employee_to_edit.status = data['status']
+      employee_to_edit.email = data['email']
+      employee_to_edit.contact_number = data['contact_number']
       dbase.session.commit()
       return jsonify({'message': 'Information was edited Successfully!'})
    except:
@@ -151,6 +156,8 @@ def view_deactivated():
          employee['gender'] = i.gender
          employee['code'] = i.code
          employee['position'] = i.position
+         employee['contact_number'] = i.contact_number
+         employee['email'] = i.email
          data.append(employee)
          return jsonify({'employee': data})
    else:
@@ -182,6 +189,8 @@ def view_one(emp_code):
          employee['gender'] = i.gender
          employee['code'] = i.code
          employee['position'] = i.position
+         employee['contact_number'] = i.contact_number
+         employee['email'] = i.email
          data.append(employee)
       return jsonify({'employee': data})
    else:
