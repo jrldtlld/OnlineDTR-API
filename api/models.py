@@ -41,8 +41,9 @@ class Employee(dbase.Model):
    email = dbase.Column(dbase.String(50))
    contact_number = dbase.Column(dbase.String(11))
    employee_status = dbase.Column(dbase.Integer)
+   department = dbase.Column(dbase.String(50))
 
-   def __init__(self, firstname, middlename, contact_number, email, lastname, birthday, gender, address, code, position, employee_status, nationality, status):
+   def __init__(self, firstname, middlename, department, contact_number, email, lastname, birthday, gender, address, code, position, employee_status, nationality, status):
       self.firstname = firstname
       self.middlename = middlename
       self.lastname = lastname
@@ -56,6 +57,7 @@ class Employee(dbase.Model):
       self.status = status
       self.email = email
       self.contact_number = contact_number
+      self.department = department
 
 class Attendance(dbase.Model):
    __tablename__ = 'attendance'

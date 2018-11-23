@@ -64,6 +64,7 @@ def employee_all():
          employee['position'] = i.position
          employee['contact_number'] = i.contact_number
          employee['email'] = i.email
+         employee['department'] = i.department
          data.append(employee)
       return jsonify({'employee': data})
    else:
@@ -77,7 +78,7 @@ def employee_add():
       new_employee = Employee(firstname=data['firstname'], middlename=data['middlename'],
        lastname=data['lastname'], address=data['address'], gender=data['gender'], code=data['code'],
        birthday = data['birthday'], position=data['position'], employee_status=1, nationality=data['nationality'], status=data['status'],
-       email=data['email'], contact_number=data['contact_number'])
+       email=data['email'], contact_number=data['contact_number'], department=data['department'])
       dbase.session.add(new_employee)
       dbase.session.commit()
       return jsonify({'message': 'Employee was added Successfully!'})
@@ -101,6 +102,7 @@ def employee_edit(emp_code):
       employee_to_edit.status = data['status']
       employee_to_edit.email = data['email']
       employee_to_edit.contact_number = data['contact_number']
+      employee_to_edit.department = data['department']
       dbase.session.commit()
       return jsonify({'message': 'Information was edited Successfully!'})
    except:
@@ -158,6 +160,7 @@ def view_deactivated():
          employee['position'] = i.position
          employee['contact_number'] = i.contact_number
          employee['email'] = i.email
+         employee['department'] = i.department
          data.append(employee)
          return jsonify({'employee': data})
    else:
@@ -191,6 +194,7 @@ def view_one(emp_code):
          employee['position'] = i.position
          employee['contact_number'] = i.contact_number
          employee['email'] = i.email
+         employee['department'] = i.department
          data.append(employee)
       return jsonify({'employee': data})
    else:
