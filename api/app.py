@@ -180,22 +180,21 @@ def view_one(emp_code):
    employee_from_db = Employee.query.filter((Employee.employee_status == 1) & (Employee.code == emp_code)).first()
    data = []
    if employee_from_db:
-      for i in employee_from_db:
-         employee = {}
-         employee['firstname'] = i.firstname
-         employee['middlename'] = i.middlename
-         employee['lastname'] = i.lastname
-         employee['birthday'] = str(i.birthday)
-         employee['address'] = i.address
-         employee['status'] = i.status
-         employee['nationality'] = i.nationality
-         employee['gender'] = i.gender
-         employee['code'] = i.code
-         employee['position'] = i.position
-         employee['contact_number'] = i.contact_number
-         employee['email'] = i.email
-         employee['department'] = i.department
-         data.append(employee)
+      employee = {}
+      employee['firstname'] = employee_from_db.firstname
+      employee['middlename'] = employee_from_db.middlename
+      employee['lastname'] = employee_from_db.lastname
+      employee['birthday'] = str(employee_from_db.birthday)
+      employee['address'] = employee_from_db.address
+      employee['status'] = employee_from_db.status
+      employee['nationality'] = employee_from_db.nationality
+      employee['gender'] = employee_from_db.gender
+      employee['code'] = employee_from_db.code
+      employee['position'] = employee_from_db.position
+      employee['contact_number'] = employee_from_db.contact_number
+      employee['email'] = employee_from_db.email
+      employee['department'] = employee_from_db.department
+      data.append(employee)
       return jsonify({'employee': data})
    else:
       return jsonify({'employee': data})
