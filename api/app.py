@@ -1,5 +1,5 @@
 from api import server, request, jsonify, check_password_hash
-from models import Admin, Employee, dbase, Overtimelist
+from models import *
 from flask_login import LoginManager, login_user
 
 login_manager = LoginManager()
@@ -22,7 +22,12 @@ def check_code(emp_code):
    else:
       return jsonify({'data': 'False'})
 
-
+@server.route('/create-time', methods=['GET'])
+def create_time():
+   new_time = CompanyTime('09:00','12:00', '13:00', '17:00')
+   dbase.session.add(new_time)
+   dbase.session.commit()
+   return jsonify({'message':'Time created successfully'})
 
 @server.route('/create-admin', methods=['GET'])
 def create_admin():
@@ -198,3 +203,20 @@ def view_one(emp_code):
       return jsonify({'employee': data})
    else:
       return jsonify({'employee': data})
+
+@server.route('/edit/time', methods=['POST'])
+def edit_time():
+   data = request.get_json()
+   to_edit = CompanyTime.query.filter_by(company_time_id = 1).first()
+   if to_edit:
+      to_edit.morning_time_in = data['morning_time_in']
+      to_edit.morning_time_out = data['morning_time_out']
+      to_edit.afternoon_time_in = data['afternoon_time_in']
+      to_edit.afternoon_time_out = data['afternoon_time_out']
+
+@server.route('/permanent/remove/<string: emp_code>', methods=['GET'])
+def permanent_remove(emp_code):
+   to_del = Employee.query.filter_by(code = emp_code).first()
+   if to_del:
+      dbase.session.delete(to_del)
+      dbase.session.commit()
