@@ -214,7 +214,7 @@ def edit_time():
       to_edit.afternoon_time_in = data['afternoon_time_in']
       to_edit.afternoon_time_out = data['afternoon_time_out']
 
-@server.route('/permanent/remove/<string: emp_code>', methods=['GET'])
+@server.route('/permanent/remove/<string:emp_code>', methods=['GET'])
 def permanent_remove(emp_code):
    to_del = Employee.query.filter_by(code = emp_code).first()
    if to_del:
