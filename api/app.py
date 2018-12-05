@@ -213,6 +213,8 @@ def edit_time():
       to_edit.morning_time_out = data['morning_time_out']
       to_edit.afternoon_time_in = data['afternoon_time_in']
       to_edit.afternoon_time_out = data['afternoon_time_out']
+      return jsonify({'message':'Time changed successfully!'})
+   return jsonify({'message': 'Operation failed!'})
 
 @server.route('/permanent/remove/<string:emp_code>', methods=['GET'])
 def permanent_remove(emp_code):
@@ -220,3 +222,8 @@ def permanent_remove(emp_code):
    if to_del:
       dbase.session.delete(to_del)
       dbase.session.commit()
+      return jsonify({'message': 'Employee removed permanently!'})
+   return jsonify({'message': 'Operation failed!'})
+
+
+
