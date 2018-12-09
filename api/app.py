@@ -167,7 +167,7 @@ def view_deactivated():
          employee['email'] = i.email
          employee['department'] = i.department
          data.append(employee)
-         return jsonify({'employee': data})
+      return jsonify({'employee': data})
    else:
       return jsonify({'employee': data})
    
