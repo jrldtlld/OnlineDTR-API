@@ -209,10 +209,10 @@ def edit_time():
    data = request.get_json()
    to_edit = CompanyTime.query.filter_by(company_time_id = 1).first()
    if to_edit:
-      to_edit.morning_time_in = time.strptime(data['morning_time_in'], "%H:%M:%S")
-      to_edit.morning_time_out = time.strptime(data['morning_time_out'], "%H:%M:%S")
-      to_edit.afternoon_time_in = time.strptime(data['afternoon_time_in'], "%H:%M:%S")
-      to_edit.afternoon_time_out = time.strptime(data['afternoon_time_out'], "%H:%M:%S")
+      to_edit.morning_time_in = time.strptime(data['morning_time_in'], "%H:%M")
+      to_edit.morning_time_out = time.strptime(data['morning_time_out'], "%H:%M")
+      to_edit.afternoon_time_in = time.strptime(data['afternoon_time_in'], "%H:%M")
+      to_edit.afternoon_time_out = time.strptime(data['afternoon_time_out'], "%H:%M")
       return jsonify({'message':'Time changed successfully!'})
    return jsonify({'message': 'Operation failed!'})
 
