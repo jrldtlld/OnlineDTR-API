@@ -153,7 +153,7 @@ def view_deactivated():
    if deactivated_list:
       for i in deactivated_list:
          employee = {}
-         employee['firstname'] = i.firstname
+         employee['firstname'] = i.firstname  
          employee['middlename'] = i.middlename
          employee['lastname'] = i.lastname
          employee['birthday'] = str(i.birthday)
