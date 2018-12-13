@@ -213,6 +213,7 @@ def edit_time():
       to_edit.morning_time_out = time.strptime(data['morning_time_out'], "%H:%M:%S")
       to_edit.afternoon_time_in = time.strptime(data['afternoon_time_in'], "%H:%M:%S")
       to_edit.afternoon_time_out = time.strptime(data['afternoon_time_out'], "%H:%M:%S")
+      dbase.session.commit()
       return jsonify({'message':'Time changed successfully!'})
    return jsonify({'message': 'Operation failed!'})
 
