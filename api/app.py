@@ -46,6 +46,12 @@ def login():
    else:
       if check_password_hash(admin.password, data['password']):
          login_user(admin, remember=True)
+      #logs here
+      details = "Logged in"
+      new_log = Logs(log_date=dt.datetime.now(), log_details=details)
+      dbase.session.add(new_log)
+      dbase.session.commit()
+      #End log
          return jsonify({'message': 'Login Successfully!'})
       else:
          return jsonify({'message': 'Invalid username or password'})
@@ -86,6 +92,12 @@ def employee_add():
        email=data['email'], contact_number=data['contact_number'], department=data['department'])
       dbase.session.add(new_employee)
       dbase.session.commit()
+      #logs here
+      details = "Added employee " + data['firstname'] + " " + data['lastname']
+      new_log = Logs(log_date=dt.datetime.now(), log_details=details)
+      dbase.session.add(new_log)
+      dbase.session.commit()
+      #End log
       return jsonify({'message': 'Employee was added Successfully!'})
    else:
       return jsonify({'message': 'The code is not available employee already exist.'})
@@ -107,8 +119,13 @@ def employee_edit(emp_code):
       employee_to_edit.status = data['status']
       employee_to_edit.email = data['email']
       employee_to_edit.contact_number = data['contact_number']
-      employee_to_edit.department = data['department']
+      employee_to_edit.department = data['department'
+      #logs here
+      details = "Edited information of " + employee_to_edit.firstname + " " + employee_to_edit.lastname
+      new_log = Logs(log_date=dt.datetime.now(), log_details=details)
+      dbase.session.add(new_log)
       dbase.session.commit()
+      #End log
       return jsonify({'message': 'Information was edited Successfully!'})
    except:
       return jsonify({'message': 'The code is not available!'})
@@ -119,6 +136,12 @@ def employee_edit(emp_code):
 def remove_employee(emp_code):
    employee_remove = Employee.query.filter_by(code = emp_code).first()
    try:
+      #logs here
+      details = "Deactivated/Removed " + employee_remove.firstname + " " + employee_remove.lastname
+      new_log = Logs(log_date=dt.datetime.now(), log_details=details)
+      dbase.session.add(new_log)
+      dbase.session.commit()
+      #End log
       employee_remove.employee_status = 0
       dbase.session.commit()
    except:
@@ -130,6 +153,12 @@ def remove_employee(emp_code):
 def activate_employee(emp_code):
    employee_remove = Employee.query.filter_by(code = emp_code).first()
    try:
+      #logs here
+      details = "Activated " + employee_remove.firstname + " " + employee_remove.lastname
+      new_log = Logs(log_date=dt.datetime.now(), log_details=details)
+      dbase.session.add(new_log)
+      dbase.session.commit()
+      #End log
       employee_remove.employee_status = 1
       dbase.session.commit()
    except:
@@ -140,6 +169,12 @@ def activate_employee(emp_code):
 def delete_employee(emp_code):
    employee_delete = Employee.query.filter_by(code = emp_code).first()
    try:
+      #logs here
+      details = "Permanently removed " + to_del.firstname + " " + to_del.lastname
+      new_log = Logs(log_date=dt.datetime.now(), log_details=details)
+      dbase.session.add(new_log)
+      dbase.session.commit()
+      #End log
       dbase.session.delete(employee_delete)
       dbase.session.commit()
    except:
@@ -214,6 +249,12 @@ def edit_time():
       to_edit.afternoon_time_in = dt.datetime.strptime(data['afternoon_time_in'], "%H:%M:%S")
       to_edit.afternoon_time_out = dt.datetime.strptime(data['afternoon_time_out'], "%H:%M:%S")
       dbase.session.commit()
+      #logs here
+      details = "Edited time In/Out."
+      new_log = Logs(log_date = dt.datetime.now(), log_details = details )
+      dbase.session.add(new_log)
+      dbase.session.commit()
+      #End log
       return jsonify({'message':'Time changed successfully!'})
    return jsonify({'message': 'Operation failed!'})
 
@@ -221,6 +262,12 @@ def edit_time():
 def permanent_remove(emp_code):
    to_del = Employee.query.filter_by(code = emp_code).first()
    if to_del:
+      #logs here
+      details = "Permanently removed " + to_del.firstname + " " + to_del.lastname
+      new_log = Logs(log_date=dt.datetime.now(), log_details=details)
+      dbase.session.add(new_log)
+      dbase.session.commit()
+      #End log
       dbase.session.delete(to_del)
       dbase.session.commit()
       return jsonify({'message': 'Employee removed permanently!'})
