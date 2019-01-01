@@ -47,10 +47,10 @@ def login():
       if check_password_hash(admin.password, data['password']):
          login_user(admin, remember=True)
       #logs here
-      details = "Logged in"
-      new_log = Logs(log_date=dt.datetime.now(), log_details=details)
-      dbase.session.add(new_log)
-      dbase.session.commit()
+         details = "Logged in"
+         new_log = Logs(log_date=dt.datetime.now(), log_details=details)
+         dbase.session.add(new_log)
+         dbase.session.commit()
       #End log
          return jsonify({'message': 'Login Successfully!'})
       else:
@@ -119,7 +119,7 @@ def employee_edit(emp_code):
       employee_to_edit.status = data['status']
       employee_to_edit.email = data['email']
       employee_to_edit.contact_number = data['contact_number']
-      employee_to_edit.department = data['department'
+      employee_to_edit.department = data['department']
       #logs here
       details = "Edited information of " + employee_to_edit.firstname + " " + employee_to_edit.lastname
       new_log = Logs(log_date=dt.datetime.now(), log_details=details)
@@ -170,7 +170,7 @@ def delete_employee(emp_code):
    employee_delete = Employee.query.filter_by(code = emp_code).first()
    try:
       #logs here
-      details = "Permanently removed " + to_del.firstname + " " + to_del.lastname
+      details = "Permanently removed " + employee_delete.firstname + " " + employee_delete.lastname
       new_log = Logs(log_date=dt.datetime.now(), log_details=details)
       dbase.session.add(new_log)
       dbase.session.commit()
