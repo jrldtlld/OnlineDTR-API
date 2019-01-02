@@ -1,5 +1,6 @@
 from api import server, request, jsonify, check_password_hash
 from models import *
+from sqlalchemy import and_, desc
 from flask_login import LoginManager, login_user
 import datetime as dt
 login_manager = LoginManager()
@@ -274,4 +275,20 @@ def permanent_remove(emp_code):
    return jsonify({'message': 'Operation failed!'})
 
 
+@server.route('/logging/<string:emp_code>', methods=['GET', 'POST'])
+def logging(emp_code):
+   #query time for logging in
+   time_set = CompanyTime.query.filter_by(company_time_id = 1).first()
+   emp_to_log = Employee.query.filter(and_(Employee.code == emp_code, Employee.employee_status == 1)).first()
+   current_date = dt.datetime.now().strftime("%m-%d-%Y")
+   #check if employee is active
+   if not emp_to_log:
+      return jsonify({'message': 'user not found'})
+   #check if employee is got logged for current date
+   logging_check = Attendance.query.filter(and_(Attendance.employee_id == emp_code, Attendance.attendance_date == current_date)).first()
+   #if not logged
+   if not logging_check:
+      new_logging = Attendance(employee_id = emp_code)
+      dbase.session.add(new_logging)
+      dbase.session.commit()
 

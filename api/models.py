@@ -73,15 +73,8 @@ class Attendance(dbase.Model):
    afternoon_attendance_status = dbase.Column(dbase.Integer)
    afternoon_remarks = dbase.Column(dbase.String(50))
 
-   def __init__(self, employee_id, attendance_date, morning_time_in, morning_time_out, morning_attendance_status, afternoon_time_in, afternoon_time_out, afternoon_attendance_status):
+   def __init__(self, employee_id):
       self.employee_id = employee_id
-      self.attendance_date = attendance_date
-      self.morning_time_in = morning_time_in
-      self.morning_time_out = morning_time_out
-      self.morning_attendance_status = morning_attendance_status
-      self.afternoon_time_in = afternoon_time_in
-      self.afternoon_time_out = afternoon_time_out
-      self.afternoon_attendance_status = afternoon_attendance_status
 
 class Logs(dbase.Model):
    __tablename__ = 'logs'
