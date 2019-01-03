@@ -291,4 +291,17 @@ def logging(emp_code):
       new_logging = Attendance(employee_id = emp_code)
       dbase.session.add(new_logging)
       dbase.session.commit()
-
+      
+@server.route('/get_logs', methods=['GET'])
+def get_logs():
+   log = Logs.query.all()
+   logs = []
+   if log:
+      for i in log:
+         log_data = {}
+         log_data['logdetails'] = i.log_details
+         log_data['logdate'] = i.log_date
+         logs.append(log_data)
+      return jsonify({'adminlogs': logs})
+   else:
+      return jsonify({'adminlogs': logs})
