@@ -1,6 +1,6 @@
 from api import server, request, jsonify, check_password_hash
 from models import *
-from sqlalchemy import and_, desc
+from sqlalchemy import and_, desc, extract
 from flask_login import LoginManager, login_user
 import datetime as dt
 login_manager = LoginManager()
@@ -394,7 +394,7 @@ def logging(emp_code):
                dbase.session.commit()
                return jsonify({'message': 'Time-out Success!'})
       else:
-         return jsonify({'message': 'Na na na'})
+         return jsonify({'message': 'Failed!'})
 
 @server.route('/get_logs', methods=['GET'])
 def get_logs():
@@ -409,3 +409,74 @@ def get_logs():
       return jsonify({'adminlogs': logs})
    else:
       return jsonify({'adminlogs': logs})
+
+@server.route('/summary/<string:dates>', methods=['GET','POST'])
+def summary(dates):
+   data = request.get_json()
+   if data['emp_id'] == "":
+      summary = Attendance.query.filter(extract('year', Attendance.date) == (dates.strftime("%Y")))\
+          .filter(extract('month', Attendance.date) == (dates.strftime("%m"))).all()
+      employees = []
+      if not summary:
+         return jsonify({'Employee': employees})
+      for employee in summary:
+         employee_data = {}
+         name = Employee.query.filter_by(employeeid=employee.employeeid).first()
+         employee_data['name'] = name.fname + " " + name.mname + " " + name.lname
+         employee_data['date'] = employee.attendance_date
+         employee_data['morning_remarks'] = employee.morning_remarks
+         employee_data['afternoon_remarks'] = employee.afternoon_remarks
+         if employee.morning_time_in is None:
+            employee_data['morning_time_in'] = "None"
+         else:
+            employee_data['morning_time_in'] = employee.morning_time_in.strftime("%I:%M %p")
+         if employee.morning_time_out is None:
+            employee_data['morning_time_out'] = "None"
+         else:
+            employee_data['morning_time_out'] = employee.morning_time_out.strftime("%I:%M %p")
+         if employee.afternoon_time_in is None:
+            employee_data['afternoon_time_in'] = "None"
+         else:
+            employee_data['afternoon_time_in'] = employee.afternoon_time_in.strftime("%I:%M %p")
+         if employee.afternoon_time_out is None:
+            employee_data['afternoon_time_out'] = "None"
+         else:
+            employee_data['afternoon_time_out'] = employee.afternoon_time_out.strftime("%I:%M %p")
+         employees.append(employee_data)
+      return jsonify({'Employee': employees})
+   else:
+      summary = Attendance.query.filter(and_(Attendance.employee_code == data['emp_id'], extract(('year', Attendance.date) == (dates.strftime("%Y"))), (extract('month', Attendance.date) == (dates.strftime("%m"))))).order_by(Attendance.attendance_date.desc()).all()
+      employees = []
+      if not summary:
+         return jsonify({'Employee': employees})
+      for employee in summary:
+         employee_data = {}
+         name = Employee.query.filter_by(
+             employeeid=employee.employeeid).first()
+         employee_data['name'] = name.fname + \
+             " " + name.mname + " " + name.lname
+         employee_data['date'] = employee.attendance_date
+         employee_data['morning_remarks'] = employee.morning_remarks
+         employee_data['afternoon_remarks'] = employee.afternoon_remarks
+         if employee.morning_time_in is None:
+            employee_data['morning_time_in'] = "None"
+         else:
+            employee_data['morning_time_in'] = employee.morning_time_in.strftime(
+                "%I:%M %p")
+         if employee.morning_time_out is None:
+            employee_data['morning_time_out'] = "None"
+         else:
+            employee_data['morning_time_out'] = employee.morning_time_out.strftime(
+                "%I:%M %p")
+         if employee.afternoon_time_in is None:
+            employee_data['afternoon_time_in'] = "None"
+         else:
+            employee_data['afternoon_time_in'] = employee.afternoon_time_in.strftime(
+                "%I:%M %p")
+         if employee.afternoon_time_out is None:
+            employee_data['afternoon_time_out'] = "None"
+         else:
+            employee_data['afternoon_time_out'] = employee.afternoon_time_out.strftime(
+                "%I:%M %p")
+         employees.append(employee_data)
+      return jsonify({'Employee': employees})
