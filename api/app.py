@@ -275,20 +275,25 @@ def permanent_remove(emp_code):
    return jsonify({'message': 'Operation failed!'})
 
 
+def to_min(str_time):
+   y, m, d = str_time.split(":")
+   total = (int(y) * 60 + int(m) + int(d))/60
+   return total
+
 @server.route('/logging/<string:emp_code>', methods=['GET', 'POST'])
 def logging(emp_code):
    #query time for logging in
    time_set = CompanyTime.query.filter_by(company_time_id = 1).first()
    morning_in = time_set.morning_time_in.strftime("%H:%M:%S.%f0")
-   get_morning_in = (morning_in.hour*60+morning_in.minute+morning_in.second)/60
+   get_morning_in = to_min(morning_in)
    morning_out = time_set.morning_time_out.strftime("%H:%M:%S.%f0")
-   get_morning_out = (morning_out.hour*60+morning_out.minute+morning_out.second)/60
+   get_morning_out = to_min(morning_out)
    afternoon_in = time_set.afternoon_time_in.strftime("%H:%M:%S.%f0")
-   get_afternoon_in = (afternoon_in.hour*60+afternoon_in.minute+afternoon_in.second)/60
+   get_afternoon_in = to_min(afternoon_in)
    afternoon_out = time_set.afternoon_time_out.strftime("%H:%M:%S.%f0")
-   get_afternoon_out = (afternoon_out.hour*60+afternoon_out.minute+afternoon_out.second)/60
+   get_afternoon_out = to_min(afternoon_out)
    current_time = dt.datetime.now().strftime("%H:%M:%S.%f0")
-   get_time = (current_time.hour*60+current_time.minute+current_time.second)/60
+   get_time = to_min(current_time)
    emp_to_log = Employee.query.filter(and_(Employee.code == emp_code, Employee.employee_status == 1)).first()
    current_date = dt.datetime.now().strftime("%m-%d-%Y")
    #check if employee is active
