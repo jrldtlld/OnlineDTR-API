@@ -303,7 +303,7 @@ def logging(emp_code):
    logging_check = Attendance.query.filter(and_(Attendance.employee_code == emp_code, Attendance.attendance_date == current_date)).first()
    #if not logged yet for this day
    if not logging_check:
-      new_logging = Attendance(employee_id=emp_code, attendance_date=current_date, morning_attendance_status=0, afternoon_attendance_status=0,
+      new_logging = Attendance(employee_code=emp_code, attendance_date=current_date, morning_attendance_status=0, afternoon_attendance_status=0,
       morning_remarks = 'Absent', afternoon_remarks = 'Absent')
       dbase.session.add(new_logging)
       dbase.session.commit()
