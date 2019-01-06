@@ -404,7 +404,7 @@ def get_logs():
       for i in log:
          log_data = {}
          log_data['logdetails'] = i.log_details
-         log_data['logdate'] = i.log_date
+         log_data['logdate'] = str(i.log_date)
          logs.append(log_data)
       return jsonify({'adminlogs': logs})
    else:
