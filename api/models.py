@@ -62,7 +62,7 @@ class Employee(dbase.Model):
 class Attendance(dbase.Model):
    __tablename__ = 'attendance'
    attendance_id = dbase.Column(dbase.Integer, primary_key = True)
-   employee_id = dbase.Column(dbase.Integer, dbase.ForeignKey('employee.employee_id'))
+   employee_code = dbase.Column(dbase.String(50))
    attendance_date = dbase.Column(dbase.Date)
    morning_time_in = dbase.Column(dbase.Time)
    morning_time_out = dbase.Column(dbase.Time)
