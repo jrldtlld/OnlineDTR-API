@@ -445,38 +445,34 @@ def summary(dates):
          employees.append(employee_data)
       return jsonify({'Employee': employees})
    else:
-      summary = Attendance.query.filter(and_(Attendance.employee_code == data['emp_id'], extract(('year', Attendance.date) == (dates.strftime("%Y"))), (extract('month', Attendance.date) == (dates.strftime("%m"))))).order_by(Attendance.attendance_date.desc()).all()
+      summary = Attendance.query.filter(and_(Attendance.employee_code == data['emp_id'],\
+       extract(('year', Attendance.date) == (dates.strftime("%Y"))),\
+         (extract('month', Attendance.date) == (dates.strftime("%m"))))).order_by(Attendance.attendance_date.desc()).all()
       employees = []
       if not summary:
          return jsonify({'Employee': employees})
       for employee in summary:
          employee_data = {}
-         name = Employee.query.filter_by(
-             employeeid=employee.employeeid).first()
-         employee_data['name'] = name.fname + \
-             " " + name.mname + " " + name.lname
+         name = Employee.query.filter_by(employeeid=employee.employeeid).first()
+         employee_data['name'] = name.fname + " " + name.mname + " " + name.lname
          employee_data['date'] = employee.attendance_date
          employee_data['morning_remarks'] = employee.morning_remarks
          employee_data['afternoon_remarks'] = employee.afternoon_remarks
          if employee.morning_time_in is None:
             employee_data['morning_time_in'] = "None"
          else:
-            employee_data['morning_time_in'] = employee.morning_time_in.strftime(
-                "%I:%M %p")
+            employee_data['morning_time_in'] = employee.morning_time_in.strftime("%I:%M %p")
          if employee.morning_time_out is None:
             employee_data['morning_time_out'] = "None"
          else:
-            employee_data['morning_time_out'] = employee.morning_time_out.strftime(
-                "%I:%M %p")
+            employee_data['morning_time_out'] = employee.morning_time_out.strftime("%I:%M %p")
          if employee.afternoon_time_in is None:
             employee_data['afternoon_time_in'] = "None"
          else:
-            employee_data['afternoon_time_in'] = employee.afternoon_time_in.strftime(
-                "%I:%M %p")
+            employee_data['afternoon_time_in'] = employee.afternoon_time_in.strftime("%I:%M %p")
          if employee.afternoon_time_out is None:
             employee_data['afternoon_time_out'] = "None"
          else:
-            employee_data['afternoon_time_out'] = employee.afternoon_time_out.strftime(
-                "%I:%M %p")
+            employee_data['afternoon_time_out'] = employee.afternoon_time_out.strftime("%I:%M %p")
          employees.append(employee_data)
       return jsonify({'Employee': employees})
