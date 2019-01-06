@@ -393,6 +393,8 @@ def logging(emp_code):
                logging_check.afternoon_attendance_status = 2
                dbase.session.commit()
                return jsonify({'message': 'Time-out Success!'})
+      else:
+         return jsonify({'message': 'Na na na'})
 
 @server.route('/get_logs', methods=['GET'])
 def get_logs():
