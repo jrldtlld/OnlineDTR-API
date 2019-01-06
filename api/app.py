@@ -300,14 +300,14 @@ def logging(emp_code):
    if not emp_to_log:
       return jsonify({'message': 'user not found'})
    #check if employee is got logged for current date
-   logging_check = Attendance.query.filter(and_(Attendance.employee_id == emp_code, Attendance.attendance_date == current_date)).first()
+   logging_check = Attendance.query.filter(and_(Attendance.employee_code == emp_code, Attendance.attendance_date == current_date)).first()
    #if not logged yet for this day
    if not logging_check:
-      new_logging = Attendance(employee_id = emp_code, attendance_date = current_date, morning_attendance_status = 0, afternoon_attendance_status = 0,
+      new_logging = Attendance(employee_id=emp_code, attendance_date=current_date, morning_attendance_status=0, afternoon_attendance_status=0,
       morning_remarks = 'Absent', afternoon_remarks = 'Absent')
       dbase.session.add(new_logging)
       dbase.session.commit()
-      to_log = Attendance.query.filter(and_(Attendance.employee_id == emp_code, Attendance.attendance_date == current_date)).first()
+      to_log = Attendance.query.filter(and_(Attendance.employee_code == emp_code, Attendance.attendance_date == current_date)).first()
       if get_time <= get_morning_in:
          if to_log.morning_attendance_status == 0:
             to_log.morning_time_in = dt.datetime.now().strftime("%H:%M:%")
