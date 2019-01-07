@@ -428,7 +428,7 @@ def get_logs():
 @server.route('/summary/<string:dates>', methods=['GET','POST'])
 def summary(dates):
    data = request.get_json()
-   dates = dt.datetime.strptime("dates", "%m-%d-%Y")
+   dates = dt.datetime.strptime("dates", "%Y-%m-%d")
    if data['emp_id'] == "":
       summary = Attendance.query.filter(and_(extract(('year', Attendance.date) == (dates.strftime("%Y"))),\
          (extract('month', Attendance.date) == (dates.strftime("%m"))))).order_by(Attendance.attendance_date.desc()).all()
