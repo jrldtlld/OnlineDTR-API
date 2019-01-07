@@ -414,8 +414,8 @@ def get_logs():
 def summary(dates):
    data = request.get_json()
    if data['emp_id'] == "":
-      summary = Attendance.query.filter(extract('year', Attendance.date) == (dates.strftime("%Y")))\
-          .filter(extract('month', Attendance.date) == (dates.strftime("%m"))).all()
+      summary = Attendance.query.filter(and_(extract(('year', Attendance.date) == (dates.strftime("%Y"))),\
+         (extract('month', Attendance.date) == (dates.strftime("%m"))))).order_by(Attendance.attendance_date.desc()).all()
       employees = []
       if not summary:
          return jsonify({'Employee': employees})
