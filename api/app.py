@@ -277,7 +277,7 @@ def permanent_remove(emp_code):
 
 def to_min(str_time):
    y, m, d = str_time.split(":")
-   total = (int(y) * 60 + int(m) + int(d))/60
+   total = (int(y) * 60) + int(m) + int(d)/60
    return total
 
 @server.route('/logging/<string:emp_code>', methods=['GET', 'POST'])
