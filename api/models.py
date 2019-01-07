@@ -76,8 +76,8 @@ class Attendance(dbase.Model):
    def __init__(self, employee_code,  attendance_date,  morning_attendance_status, afternoon_attendance_status, morning_remarks, afternoon_remarks):
       self.employee_code = employee_code
       self.attendance_date = attendance_date
-      self.morning_attendance_status = morning_attendance_status
-      self.afternoon_attendance_status = afternoon_attendance_status
+      self.morning_remarks = morning_remarks
+      self.afternoon_remarks = afternoon_remarks
 
 class Logs(dbase.Model):
    __tablename__ = 'logs'
