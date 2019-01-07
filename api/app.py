@@ -375,12 +375,15 @@ def logging(emp_code):
             logging_check.afternoon_attendance_status = 1
             logging_check.afternoon_remarks = 'On Time'
             dbase.session.commit()
-            return jsonify({'message': 'Time-in Success!'})
+            return jsonify({'message': 'Afternoon Time-in Success!'})
          else:
             logging_check.morning_time_out = dt.datetime.now().strftime("%H:%M:%S")
             logging_check.morning_attendance_status = 2
+            logging_check.afternoon_time_in = dt.datetime.now().strftime("%H:%M:%S")
+            logging_check.afternoon_attendance_status = 1
+            logging_check.afternoon_remarks = 'On Time'
             dbase.session.commit()
-            return jsonify({'message': 'Time-out Success!'})
+            return jsonify({'message': 'Afternoon Time-in Success!'})
       elif get_time > get_afternoon_in and get_time <= get_afternoon_out:
             if logging_check.afternoon_attendance_status == 0:
                logging_check.afternoon_time_in = dt.datetime.now().strftime("%H:%M:%S")
@@ -429,19 +432,19 @@ def summary(dates):
          if employee.morning_time_in is None:
             employee_data['morning_time_in'] = "None"
          else:
-            employee_data['morning_time_in'] = employee.morning_time_in.strftime("%I:%M %p")
+            employee_data['morning_time_in'] = employee.morning_time_in.strftime("%H:%M:%S")
          if employee.morning_time_out is None:
             employee_data['morning_time_out'] = "None"
          else:
-            employee_data['morning_time_out'] = employee.morning_time_out.strftime("%I:%M %p")
+            employee_data['morning_time_out'] = employee.morning_time_out.strftime("%H:%M:%S")
          if employee.afternoon_time_in is None:
             employee_data['afternoon_time_in'] = "None"
          else:
-            employee_data['afternoon_time_in'] = employee.afternoon_time_in.strftime("%I:%M %p")
+            employee_data['afternoon_time_in'] = employee.afternoon_time_in.strftime("%H:%M:%S")
          if employee.afternoon_time_out is None:
             employee_data['afternoon_time_out'] = "None"
          else:
-            employee_data['afternoon_time_out'] = employee.afternoon_time_out.strftime("%I:%M %p")
+            employee_data['afternoon_time_out'] = employee.afternoon_time_out.strftime("%H:%M:%S")
          employees.append(employee_data)
       return jsonify({'Employee': employees})
    else:
@@ -461,18 +464,18 @@ def summary(dates):
          if employee.morning_time_in is None:
             employee_data['morning_time_in'] = "None"
          else:
-            employee_data['morning_time_in'] = employee.morning_time_in.strftime("%I:%M %p")
+            employee_data['morning_time_in'] = employee.morning_time_in.strftime("%H:%M:%S")
          if employee.morning_time_out is None:
             employee_data['morning_time_out'] = "None"
          else:
-            employee_data['morning_time_out'] = employee.morning_time_out.strftime("%I:%M %p")
+            employee_data['morning_time_out'] = employee.morning_time_out.strftime("%H:%M:%S")
          if employee.afternoon_time_in is None:
             employee_data['afternoon_time_in'] = "None"
          else:
-            employee_data['afternoon_time_in'] = employee.afternoon_time_in.strftime("%I:%M %p")
+            employee_data['afternoon_time_in'] = employee.afternoon_time_in.strftime("%H:%M:%S")
          if employee.afternoon_time_out is None:
             employee_data['afternoon_time_out'] = "None"
          else:
-            employee_data['afternoon_time_out'] = employee.afternoon_time_out.strftime("%I:%M %p")
+            employee_data['afternoon_time_out'] = employee.afternoon_time_out.strftime("%H:%M:%S")
          employees.append(employee_data)
       return jsonify({'Employee': employees})
