@@ -438,7 +438,7 @@ def summary(dates):
       for employee in summary:
          employee_data = {}
          name = Employee.query.filter_by(code=employee.employee_code).first()
-         employee_data['name'] = name.fname + " " + name.mname + " " + name.lname
+         employee_data['name'] = name.firstname + " " + name.middlename + " " + name.lastname
          employee_data['date'] = employee.attendance_date
          employee_data['morning_remarks'] = employee.morning_remarks
          employee_data['afternoon_remarks'] = employee.afternoon_remarks
