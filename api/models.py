@@ -78,6 +78,8 @@ class Attendance(dbase.Model):
       self.attendance_date = attendance_date
       self.morning_remarks = morning_remarks
       self.afternoon_remarks = afternoon_remarks
+      self.morning_attendance_status = morning_attendance_status
+      self.afternoon_attendance_status = afternoon_attendance_status
 
 class Logs(dbase.Model):
    __tablename__ = 'logs'
