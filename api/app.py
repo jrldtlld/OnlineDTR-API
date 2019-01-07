@@ -292,10 +292,22 @@ def logging(emp_code):
    get_afternoon_in = to_min(afternoon_in)
    afternoon_out = time_set.afternoon_time_out.strftime("%H:%M:%S")
    get_afternoon_out = to_min(afternoon_out)
+   print get_afternoon_out
+   print "\n"
+   print get_afternoon_in
+   print "\n"
+   print get_morning_in
+   print "\n"
+   print get_morning_out
+   print "\n"
    current_time = dt.datetime.now().strftime("%H:%M:%S")
    get_time = to_min(current_time)
+   print get_time
+   print "\n"
    emp_to_log = Employee.query.filter(and_(Employee.code == emp_code, Employee.employee_status == 1)).first()
    current_date = dt.datetime.now().strftime("%m-%d-%Y")
+   print current_date
+   print "\n"
    #check if employee is active
    if not emp_to_log:
       return jsonify({'message': 'user not found'})
