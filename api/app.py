@@ -437,7 +437,7 @@ def summary(dates):
          return jsonify({'Employee': employees})
       for employee in summary:
          employee_data = {}
-         name = Employee.query.filter_by(employeeid=employee.employeeid).first()
+         name = Employee.query.filter_by(code=employee.employee_code).first()
          employee_data['name'] = name.fname + " " + name.mname + " " + name.lname
          employee_data['date'] = employee.attendance_date
          employee_data['morning_remarks'] = employee.morning_remarks
@@ -469,7 +469,7 @@ def summary(dates):
          return jsonify({'Employee': employees})
       for employee in summary:
          employee_data = {}
-         name = Employee.query.filter_by(employeeid=employee.employeeid).first()
+         name = Employee.query.filter_by(code=employee.employee_code).first()
          employee_data['name'] = name.fname + " " + name.mname + " " + name.lname
          employee_data['date'] = employee.attendance_date
          employee_data['morning_remarks'] = employee.morning_remarks
