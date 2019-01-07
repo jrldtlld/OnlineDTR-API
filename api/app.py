@@ -430,7 +430,7 @@ def summary(dates):
    data = request.get_json()
    dates = dt.datetime.strptime(dates, "%Y-%m-%d")
    if data['emp_id'] == "":
-      summary = Attendance.query.filter(and_(extract(('year', Attendance.attendance_date) == (dates.strftime("%Y"))),\
+      summary = Attendance.query.filter(and_((extract('year', Attendance.attendance_date) == (dates.strftime("%Y"))),\
          (extract('month', Attendance.attendance_date) == (dates.strftime("%m"))))).order_by(Attendance.attendance_date.desc()).all()
       employees = []
       if not summary:
@@ -462,7 +462,7 @@ def summary(dates):
       return jsonify({'Employee': employees})
    else:
       summary = Attendance.query.filter(and_(Attendance.employee_code == data['emp_id'],\
-       extract(('year', Attendance.attendance_date) == (dates.strftime("%Y"))),\
+       (extract('year', Attendance.attendance_date) == (dates.strftime("%Y"))),\
          (extract('month', Attendance.attendance_date) == (dates.strftime("%m"))))).order_by(Attendance.attendance_date.desc()).all()
       employees = []
       if not summary:
