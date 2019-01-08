@@ -467,6 +467,8 @@ def summary(dates):
       for employee in summary:
          employee_data = {}
          name = Employee.query.filter_by(code=employee.employee_code).first()
+         if not name:
+            employee_data['name'] = "Empty"
          employee_data['name'] = name.firstname + " " + name.middlename + " " + name.lastname
          employee_data['date'] = str(employee.attendance_date)
          employee_data['morning_remarks'] = employee.morning_remarks
