@@ -1,5 +1,7 @@
 from api import server, request, jsonify, check_password_hash
 from models import *
+from cloudinary.uploader import upload
+from cloudinary.utils import cloudinary_url
 from sqlalchemy import and_, desc, extract
 from flask_login import LoginManager, login_user
 import datetime as dt
@@ -339,11 +341,14 @@ def logging(emp_code):
             return jsonify({'message': 'Please time-out later!'})
       elif get_time > get_morning_out and get_time <= get_afternoon_in:
          if to_log.morning_attendance_status == 0:
-            to_log.afternoon_time_in = dt.datetime.now().strftime("%H:%M:%S")
-            to_log.afternoon_attendance_status = 1
-            to_log.afternoon_remarks = 'On Time'
-            dbase.session.commit()
-            return jsonify({'message': 'Afternoon time-in Success'})
+            if to_log.afternoon_attendance_status == 0:
+               to_log.afternoon_time_in = dt.datetime.now().strftime("%H:%M:%S")
+               to_log.afternoon_attendance_status = 1
+               to_log.afternoon_remarks = 'On Time'
+               dbase.session.commit()
+               return jsonify({'message': 'Afternoon time-in Success'})
+            elif to_log.afternoon_attendance_status == 1:
+               return jsonify({'message': 'Please time-out later!'})
          elif to_log.morning_attendance_status == 2:
             to_log.afternoon_time_in = dt.datetime.now().strftime("%H:%M:%S")
             to_log.afternoon_attendance_status = 1
@@ -511,4 +516,5 @@ def summary(dates):
 def gen_qr(emp_code):
    qr = pyqrcode.create(emp_code)
    image = qr.png(emp_code+'.png', scale=6)
+   print image
    pass
