@@ -507,7 +507,7 @@ def summary(dates):
          employees.append(employee_data)
       return jsonify({'Employee': employees})
 
-@server.route('/generate/qr/<string:emp_code', methods=['GET'])
+@server.route('/generate/qr/<string:emp_code>', methods=['GET'])
 def gen_qr(emp_code):
    qr = pyqrcode.create(emp_code)
    image = qr.png(emp_code+'.png', scale=6)
