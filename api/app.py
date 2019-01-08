@@ -462,7 +462,7 @@ def summary(dates):
          employee_data = {}
          name = Employee.query.filter_by(code=employee.employee_code).first()
          employee_data['name'] = name.firstname + " " + name.middlename + " " + name.lastname
-         employee_data['date'] = employee.attendance_date
+         employee_data['date'] = str(employee.attendance_date)
          employee_data['morning_remarks'] = employee.morning_remarks
          employee_data['afternoon_remarks'] = employee.afternoon_remarks
          if employee.morning_time_in is None:
@@ -494,7 +494,7 @@ def summary(dates):
          employee_data = {}
          name = Employee.query.filter_by(code=employee.employee_code).first()
          employee_data['name'] = name.firstname + " " + name.middlename + " " + name.lastname
-         employee_data['date'] = employee.attendance_date
+         employee_data['date'] = str(employee.attendance_date)
          employee_data['morning_remarks'] = employee.morning_remarks
          employee_data['afternoon_remarks'] = employee.afternoon_remarks
          if employee.morning_time_in is None:
@@ -527,5 +527,7 @@ def gen_qr(emp_code):
    )
    options = {"resource_type": "raw"}
    uploading = upload(emp_code+'.png', **options)
-   print uploading['url']
+   qr_url = Employee.query.filter_by(code=emp_code).first()
+   qr_url.qr_url = uploading['url']
+   dbase.session.commit()
    return 'uploaded'
