@@ -515,6 +515,8 @@ def summary(dates):
 @server.route('/generate/qr/<string:emp_code>', methods=['GET'])
 def gen_qr(emp_code):
    qr = pyqrcode.create(emp_code)
-   image = qr.png(emp_code+'.png', scale=6)
+   qr.png(emp_code+'.png', scale=6)
+   with open(code+'.png', "rb") as f:
+   image = f.read()
    print image
    pass
