@@ -519,15 +519,12 @@ def summary(dates):
 @server.route('/generate/qr/<string:emp_code>', methods=['GET'])
 def gen_qr(emp_code):
    qr = pyqrcode.create(emp_code)
-   qr.png(emp_code+'.png', scale=6)
-   with open(emp_code+'.png', "rb") as f:
-      image = f.read()
-      cloudinary.config(
-         cloud_name='do3qsjjlm',
-         api_key='424445534816588',
-         api_secret='HsXcwUbmXuSJ-mcMtLcNBZTCSMY'
-      )
-      options = {"resource_type": "raw"}
-      uploading = upload(image, **options)
-      print uploading['url']
-      return 'uploaded'
+   cloudinary.config(
+      cloud_name='do3qsjjlm',
+      api_key='424445534816588',
+      api_secret='HsXcwUbmXuSJ-mcMtLcNBZTCSMY'
+   )
+   options = {"resource_type": "raw"}
+   uploading = upload((qr.png(emp_code+'.png', scale=6)), **options)
+   print uploading['url']
+   return 'uploaded'
