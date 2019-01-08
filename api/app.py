@@ -333,7 +333,7 @@ def logging(emp_code):
       to_log = Attendance.query.filter(and_(Attendance.employee_code == emp_code, Attendance.attendance_date == current_date)).first()
       if get_time <= get_morning_in:
          if to_log.morning_attendance_status == 0:
-            to_log.morning_time_in = dt.datetime.now().strftime("%H:%M:%")
+            to_log.morning_time_in = dt.datetime.now().strftime("%H:%M:%S")
             to_log.morning_attendance_status = 1
             to_log.morning_remarks = 'On Time'
             dbase.session.commit()
@@ -394,7 +394,7 @@ def logging(emp_code):
    else:
       if get_time <= get_morning_in:
          if logging_check.morning_attendance_status == 0:
-            logging_check.morning_time_in = dt.datetime.now().strftime("%H:%M:%")
+            logging_check.morning_time_in = dt.datetime.now().strftime("%H:%M:%S")
             logging_check.morning_attendance_status = 1
             logging_check.morning_remarks = 'On Time'
             dbase.session.commit()
