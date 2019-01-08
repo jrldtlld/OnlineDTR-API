@@ -84,6 +84,8 @@ def employee_all():
          employee['contact_number'] = i.contact_number
          employee['email'] = i.email
          employee['department'] = i.department
+         employee['qr_url'] = i.qr_url
+         employee['profile_url'] = i.profile_url
          data.append(employee)
       return jsonify({'employee': data})
    else:
@@ -242,6 +244,8 @@ def view_one(emp_code):
       employee['contact_number'] = employee_from_db.contact_number
       employee['email'] = employee_from_db.email
       employee['department'] = employee_from_db.department
+      employee['qr_url'] = employee_from_db.qr_url
+      employee['profile_url'] = employee_from_db.profile_url
       data.append(employee)
       return jsonify({'employee': data})
    else:
@@ -531,3 +535,4 @@ def gen_qr(emp_code):
    qr_url.qr_url = uploading['url']
    dbase.session.commit()
    return 'uploaded'
+
