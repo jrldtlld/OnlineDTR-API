@@ -442,7 +442,7 @@ def logging(emp_code):
 
 @server.route('/get_logs', methods=['GET'])
 def get_logs():
-   log = Logs.query.order_by(Logs.log_date.desc()).all()
+   log = Logs.query.order_by(Logs.log_date.asc()).all()
    logs = []
    if log:
       for i in log:
