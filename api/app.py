@@ -1,11 +1,15 @@
 from api import server, request, jsonify, check_password_hash
 from models import *
+import cloudinary
 from cloudinary.uploader import upload
 from cloudinary.utils import cloudinary_url
 from sqlalchemy import and_, desc, extract
 from flask_login import LoginManager, login_user
 import datetime as dt
 import pyqrcode
+import os
+import sys
+
 login_manager = LoginManager()
 login_manager.init_app(server)
 
@@ -518,5 +522,12 @@ def gen_qr(emp_code):
    qr.png(emp_code+'.png', scale=6)
    with open(emp_code+'.png', "rb") as f:
       image = f.read()
-      print image
+      cloudinary.config(
+         cloud_name='do3qsjjlm',
+         api_key='424445534816588',
+         api_secret='HsXcwUbmXuSJ-mcMtLcNBZTCSMY'
+      )
+      options = {"resource_type": "raw"}
+      uploading = upload(image, **options)
+      print uploading['url']
       return 'uploaded'
