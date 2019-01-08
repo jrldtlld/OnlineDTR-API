@@ -42,6 +42,8 @@ class Employee(dbase.Model):
    contact_number = dbase.Column(dbase.String(11))
    employee_status = dbase.Column(dbase.Integer)
    department = dbase.Column(dbase.String(50))
+   qr_url = dbase.Column(dbase.String(100))
+   profile_url = dbase.Column(dbase.String(100))
 
    def __init__(self, firstname, middlename, department, contact_number, email, lastname, birthday, gender, address, code, position, employee_status, nationality, status):
       self.firstname = firstname
