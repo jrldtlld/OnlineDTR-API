@@ -396,7 +396,7 @@ def logging(emp_code):
             logging_check.afternoon_remarks = 'On Time'
             dbase.session.commit()
             return jsonify({'message': 'Afternoon Time-in Success!'})
-         else:
+         if  logging_check.afternoon_attendance_status == 0:
             logging_check.morning_time_out = dt.datetime.now().strftime("%H:%M:%S")
             logging_check.morning_attendance_status = 2
             logging_check.afternoon_time_in = dt.datetime.now().strftime("%H:%M:%S")
@@ -404,6 +404,8 @@ def logging(emp_code):
             logging_check.afternoon_remarks = 'On Time'
             dbase.session.commit()
             return jsonify({'message': 'Afternoon Time-in Success!'})
+         else:
+            return jsonify({'message': 'Cannot time-out yet!'})
       elif get_time > get_afternoon_in and get_time <= get_afternoon_out:
             if logging_check.afternoon_attendance_status == 0:
                logging_check.afternoon_time_in = dt.datetime.now().strftime("%H:%M:%S")
