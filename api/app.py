@@ -3,6 +3,7 @@ from models import *
 from sqlalchemy import and_, desc, extract
 from flask_login import LoginManager, login_user
 import datetime as dt
+import pyqrcode
 login_manager = LoginManager()
 login_manager.init_app(server)
 
@@ -374,7 +375,7 @@ def logging(emp_code):
             logging_check.morning_remarks = 'On Time'
             dbase.session.commit()
             return jsonify({'message': 'Time-in Success!'})
-      elif get_time >= get_morning_in and get_time < get_morning_out:
+      elif get_time > get_morning_in and get_time < get_morning_out:
          if logging_check.morning_attendance_status == 0:
             logging_check.morning_time_in = dt.datetime.now().strftime("%H:%M:%S")
             logging_check.morning_attendance_status = 1
@@ -384,7 +385,7 @@ def logging(emp_code):
          else:
             return jsonify({'message': 'Please time-out later!'})
       elif get_time >= get_morning_out and get_time <= get_afternoon_in:
-         if logging_check.morning_attendance_status == 0:
+         if logging_check.morning_attendance_status == 0 and logging_check.afternoon_attendance_status == 0:
             logging_check.afternoon_time_in = dt.datetime.now().strftime("%H:%M:%S")
             logging_check.afternoon_attendance_status = 1
             logging_check.afternoon_remarks = 'On Time'
@@ -505,3 +506,9 @@ def summary(dates):
             employee_data['afternoon_time_out'] = str(employee.afternoon_time_out.strftime("%H:%M:%S"))
          employees.append(employee_data)
       return jsonify({'Employee': employees})
+
+@server.route('/generate/qr/<string:emp_code', methods=['GET'])
+def gen_qr(emp_code):
+   qr = pyqrcode.create(emp_code)
+   image = qr.png(emp_code+'.png', scale=6)
+   pass
