@@ -519,4 +519,4 @@ def gen_qr(emp_code):
    with open(emp_code+'.png', "rb") as f:
       image = f.read()
       print image
-      pass
+      return 'uploaded'
