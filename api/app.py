@@ -517,6 +517,6 @@ def gen_qr(emp_code):
    qr = pyqrcode.create(emp_code)
    qr.png(emp_code+'.png', scale=6)
    with open(code+'.png', "rb") as f:
-   image = f.read()
-   print image
-   pass
+      image = f.read()
+      print image
+      pass
