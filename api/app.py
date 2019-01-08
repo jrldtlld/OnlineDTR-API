@@ -380,6 +380,8 @@ def logging(emp_code):
                to_log.afternoon_attendance_status = 2
                dbase.session.commit()
                return jsonify({'message': 'Afternoon Time-out Success!'})
+      else:
+         return jsonify({'message': 'Failed!'})
    else:
       if get_time <= get_morning_in:
          if logging_check.morning_attendance_status == 0:
