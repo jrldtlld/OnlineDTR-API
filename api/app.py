@@ -520,7 +520,7 @@ def summary(dates):
 def gen_qr(emp_code):
    qr = pyqrcode.create(emp_code)
    qr.png(emp_code+'.png', scale=6)
-   with open(emp_code+'.png', "wb") as f:
+   with open(emp_code+'.png', "rb") as f:
       cloudinary.config(
          cloud_name='do3qsjjlm',
          api_key='424445534816588',
