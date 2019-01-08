@@ -458,7 +458,7 @@ def get_logs():
 def summary(dates):
    data = request.get_json()
    dates = dt.datetime.strptime(dates, "%Y-%m-%d")
-   if data['emp_id'] == "":
+   if data['emp_id'] == "" or data['emp_id'] is None:
       summary = Attendance.query.filter(and_((extract('year', Attendance.attendance_date) == (dates.strftime("%Y"))),\
          (extract('month', Attendance.attendance_date) == (dates.strftime("%m"))))).order_by(Attendance.attendance_date.desc()).all()
       employees = []
