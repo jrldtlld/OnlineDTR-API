@@ -374,7 +374,7 @@ def logging(emp_code):
             to_log.morning_time_out = dt.datetime.now().strftime("%H:%M:%S")
             to_log.morning_attendance_status = 2
             dbase.session.commit()
-            return jsonify({'message': 'Time-out Success!'})
+            return jsonify({'message': 'Morning time-out Success!'})
          else:
             return jsonify({'message': 'Failed!'})
       elif get_time > get_afternoon_in and get_time <= get_afternoon_out:
@@ -385,7 +385,7 @@ def logging(emp_code):
             dbase.session.commit()
             return jsonify({'message': 'Afternoon Time-in Success!'})
          elif logging_check.afternoon_attendance_status == 1:
-            logging_check.afternoon_out = dt.datetime.now().strftime("%H:%M:%S")
+            logging_check.afternoon_time_out = dt.datetime.now().strftime("%H:%M:%S")
             logging_check.afternoon_attendance_status = 2
             dbase.session.commit()
             return jsonify({'message': 'Afternoon Time-out Success!'})
@@ -437,7 +437,7 @@ def logging(emp_code):
             logging_check.morning_time_out = dt.datetime.now().strftime("%H:%M:%S")
             logging_check.morning_attendance_status = 2
             dbase.session.commit()
-            return jsonify({'message': 'Time-out Success!'})
+            return jsonify({'message': 'Morning time-out Success!'})
          else:
             return jsonify({'message': 'Failed!'})
       elif get_time > get_afternoon_in and get_time <= get_afternoon_out:
@@ -448,7 +448,7 @@ def logging(emp_code):
             dbase.session.commit()
             return jsonify({'message': 'Afternoon Time-in Success!'})
          elif logging_check.afternoon_attendance_status == 1:
-            logging_check.afternoon_out = dt.datetime.now().strftime("%H:%M:%S")
+            logging_check.afternoon_time_out = dt.datetime.now().strftime("%H:%M:%S")
             logging_check.afternoon_attendance_status = 2
             dbase.session.commit()
             return jsonify({'message': 'Afternoon Time-out Success!'})
