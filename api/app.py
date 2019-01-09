@@ -378,17 +378,19 @@ def logging(emp_code):
          else:
             return jsonify({'message': 'Failed!'})
       elif get_time > get_afternoon_in and get_time <= get_afternoon_out:
-            if to_log.afternoon_attendance_status == 0:
-               to_log.afternoon_time_in = dt.datetime.now().strftime("%H:%M:%S")
-               to_log.afternoon_attendance_status = 1
-               to_log.afternoon_remarks = 'Late'
-               dbase.session.commit()
-               return jsonify({'message': 'Afternoon Time-in Success!'})
-            else:
-               to_log.afternoon_out = dt.datetime.now().strftime("%H:%M:%S")
-               to_log.afternoon_attendance_status = 2
-               dbase.session.commit()
-               return jsonify({'message': 'Afternoon Time-out Success!'})
+         if logging_check.afternoon_attendance_status == 0:
+            logging_check.afternoon_time_in = dt.datetime.now().strftime("%H:%M:%S")
+            logging_check.afternoon_attendance_status = 1
+            logging_check.afternoon_remarks = 'Late'
+            dbase.session.commit()
+            return jsonify({'message': 'Afternoon Time-in Success!'})
+         elif logging_check.afternoon_attendance_status == 1:
+            logging_check.afternoon_out = dt.datetime.now().strftime("%H:%M:%S")
+            logging_check.afternoon_attendance_status = 2
+            dbase.session.commit()
+            return jsonify({'message': 'Afternoon Time-out Success!'})
+         else:
+            return jsonify({'message': 'Failed!'})
       else:
          return jsonify({'message': 'Failed!'})
    else:
@@ -439,19 +441,19 @@ def logging(emp_code):
          else:
             return jsonify({'message': 'Failed!'})
       elif get_time > get_afternoon_in and get_time <= get_afternoon_out:
-            if logging_check.afternoon_attendance_status == 0:
-               logging_check.afternoon_time_in = dt.datetime.now().strftime("%H:%M:%S")
-               logging_check.afternoon_attendance_status = 1
-               logging_check.afternoon_remarks = 'Late'
-               dbase.session.commit()
-               return jsonify({'message': 'Afternoon Time-in Success!'})
-            elif logging_check.afternoon_attendance_status == 1:
-               logging_check.afternoon_out = dt.datetime.now().strftime("%H:%M:%S")
-               logging_check.afternoon_attendance_status = 2
-               dbase.session.commit()
-               return jsonify({'message': 'Afternoon Time-out Success!'})
-            else:
-               return jsonify({'message': 'Failed!'})
+         if logging_check.afternoon_attendance_status == 0:
+            logging_check.afternoon_time_in = dt.datetime.now().strftime("%H:%M:%S")
+            logging_check.afternoon_attendance_status = 1
+            logging_check.afternoon_remarks = 'Late'
+            dbase.session.commit()
+            return jsonify({'message': 'Afternoon Time-in Success!'})
+         elif logging_check.afternoon_attendance_status == 1:
+            logging_check.afternoon_out = dt.datetime.now().strftime("%H:%M:%S")
+            logging_check.afternoon_attendance_status = 2
+            dbase.session.commit()
+            return jsonify({'message': 'Afternoon Time-out Success!'})
+         else:
+            return jsonify({'message': 'Failed!'})
       else:
          return jsonify({'message': 'Failed!'})
 
