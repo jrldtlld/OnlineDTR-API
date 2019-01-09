@@ -445,11 +445,13 @@ def logging(emp_code):
                logging_check.afternoon_remarks = 'Late'
                dbase.session.commit()
                return jsonify({'message': 'Afternoon Time-in Success!'})
-            else:
+            elif logging_check.afternoon_attendance_status == 1:
                logging_check.afternoon_out = dt.datetime.now().strftime("%H:%M:%S")
                logging_check.afternoon_attendance_status = 2
                dbase.session.commit()
                return jsonify({'message': 'Afternoon Time-out Success!'})
+            else:
+               return jsonify({'message': 'Failed!'})
       else:
          return jsonify({'message': 'Failed!'})
 
