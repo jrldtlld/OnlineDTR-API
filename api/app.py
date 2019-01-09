@@ -479,6 +479,7 @@ def summary(dates):
       summary = Attendance.query.filter(and_((extract('year', Attendance.attendance_date) == (dates.strftime("%Y"))),\
          (extract('month', Attendance.attendance_date) == (dates.strftime("%m"))))).order_by(Attendance.attendance_date.desc()).all()
       employees = []
+      print summary
       if not summary:
          return jsonify({'Employee': employees})
       for employee in summary:
@@ -512,8 +513,8 @@ def summary(dates):
    else:
       summary = Attendance.query.filter(Attendance.employee_code == data['emp_id']).filter(extract('year', Attendance.attendance_date) == (dates.strftime("%Y"))).\
          filter(extract('month', Attendance.attendance_date) == (dates.strftime("%m"))).order_by(Attendance.attendance_date.desc()).all()
+      print summary
       employees = []
-
       if not summary:
          return jsonify({'Employee': employees})
       for employee in summary:
