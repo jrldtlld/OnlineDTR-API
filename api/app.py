@@ -510,7 +510,6 @@ def summary(dates):
          employees.append(employee_data)
       return jsonify({'Employee': employees})
    else:
-      print summary
       summary = Attendance.query.filter(Attendance.employee_code == data['emp_id']).filter(extract('year', Attendance.attendance_date) == (dates.strftime("%Y"))).\
          filter(extract('month', Attendance.attendance_date) == (dates.strftime("%m"))).order_by(Attendance.attendance_date.desc()).all()
       employees = []
